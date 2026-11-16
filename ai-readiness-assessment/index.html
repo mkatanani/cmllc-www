@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Readiness Assessment | Capability Methods</title>
+<meta name="description" content="A free AI Readiness Assessment to see how safely and effectively you are adopting AI, and what to fix first.">
+<link rel="canonical" href="https://www.capabilitymethods.com/ai-readiness-assessment">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Readiness Assessment | Capability Methods">
+<meta property="og:description" content="A free AI Readiness Assessment to see how safely and effectively you are adopting AI, and what to fix first.">
+<meta property="og:url" content="https://www.capabilitymethods.com/ai-readiness-assessment">
+<meta property="og:image" content="https://www.capabilitymethods.com/assets/img/logo.png">
+<link rel="icon" href="/assets/img/logo.png">
+<link rel="stylesheet" href="/assets/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MKHZ5TBPRN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MKHZ5TBPRN');</script>
+</head>
+<body>
+<div class="nav"><div class="wrap">
+  <a class="logo" href="https://www.capabilitymethods.com/home"><img src="/assets/img/logo.png" alt="Capability Methods" width="246" height="174"></a>
+  <details class="burger"><summary>Menu</summary></details>
+  <ul class="menu" aria-label="Main menu"><li><a href="https://www.capabilitymethods.com/home">Home</a></li><li><details><summary>What we do</summary><ul class="sub"><li><a href="https://www.capabilitymethods.com/operations-consulting">Digital Excellence</a></li><li><a href="https://www.capabilitymethods.com/business-process-modernization">Operations Modernization</a></li><li><a href="https://www.capabilitymethods.com/business-transformation-consulting">Transformation</a></li></ul></details></li><li><details><summary>Assessments</summary><ul class="sub"><li><a href="https://www.capabilitymethods.com/operations-maturity-assessment">Operations Assessment</a></li><li><a href="https://www.capabilitymethods.com/ai-readiness-assessment" aria-current="page">AI Readiness Assessment</a></li></ul></details></li><li><a href="https://services.capabilitymethods.com/">Services</a></li><li><a href="https://services.capabilitymethods.com/insights/">Insights</a></li><li><a href="https://www.capabilitymethods.com/about-capability-methods">About Us</a></li><li class="contact"><a href="https://www.capabilitymethods.com/contact-us">Contact us</a></li></ul>
+</div></div>
+<script>
+(function () {
+  var lists = Array.prototype.slice.call(document.querySelectorAll('.menu details'));
+  var hover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  function closeAll(except) { lists.forEach(function (d) { if (d !== except) d.removeAttribute('open'); }); }
+  lists.forEach(function (d) {
+    var li = d.parentNode, timer;
+    d.addEventListener('toggle', function () { if (d.open) closeAll(d); });
+    d.querySelector('summary').addEventListener('click', function (e) { if (hover.matches && window.innerWidth > 980 && d.open) e.preventDefault(); });
+    li.addEventListener('mouseenter', function () { if (hover.matches && window.innerWidth > 980) { clearTimeout(timer); d.setAttribute('open', ''); } });
+    li.addEventListener('mouseleave', function () { if (hover.matches && window.innerWidth > 980) { timer = setTimeout(function () { d.removeAttribute('open'); }, 200); } });
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.menu details')) closeAll(null); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+})();
+</script>
+<main>
+<!-- EDIT: the assessment is Mark's live AI Readiness Assessment (copied 16 Nov 2026), in assets/embeds/ai-assessment.html. -->
+<header class="hero"><div class="wrap">
+  <h1>AI Readiness Assessment</h1>
+</div></header>
+
+<section class="tint"><div class="wrap">
+  <iframe class="embed" src="/assets/embeds/ai-assessment.html" title="AI Readiness Assessment" scrolling="no"></iframe>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="cols">
+    <div><a class="logo" href="https://www.capabilitymethods.com/home"><img src="/assets/img/logo.png" alt="Capability Methods" width="246" height="174" loading="lazy"></a>
+      <p style="margin-top:10px"><a href="mailto:info@capabilitymethods.com">info@capabilitymethods.com</a></p></div>
+    <ul><li><a href="https://www.capabilitymethods.com/home">Home</a></li><li><a href="https://www.capabilitymethods.com/operations-consulting">Digital Excellence</a></li><li><a href="https://www.capabilitymethods.com/business-process-modernization">Operations Modernization</a></li><li><a href="https://www.capabilitymethods.com/business-transformation-consulting">Transformation</a></li><li><a href="https://www.capabilitymethods.com/operations-maturity-assessment">Operations Assessment</a></li></ul><ul><li><a href="https://www.capabilitymethods.com/ai-readiness-assessment">AI Readiness Assessment</a></li><li><a href="https://services.capabilitymethods.com/">Services</a></li><li><a href="https://services.capabilitymethods.com/insights/">Insights</a></li><li><a href="https://www.capabilitymethods.com/about-capability-methods">About Us</a></li><li><a href="https://www.capabilitymethods.com/contact-us">Contact us</a></li></ul>
+  </div>
+  <div class="legal">
+    <p>&copy; 2026 Capability Methods. Trademarks of Capability Methods LLC.</p>
+    <p>This site uses Google Analytics cookies to count visits and see which pages are used.</p>
+  </div>
+</div></footer>
+<script>
+// Each embedded tool (contact form, assessments) reports its height; the page sizes its frame to fit, so no scroll box.
+window.addEventListener('message', function (e) {
+  if (!e.data || !e.data.cmEmbedHeight) return;
+  document.querySelectorAll('iframe.embed').forEach(function (f) {
+    if (f.contentWindow === e.source) f.style.height = (e.data.cmEmbedHeight + 2) + 'px';
+  });
+});
+</script>
+</body>
+</html>

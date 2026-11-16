@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Capability Methods</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #F3F0FA;
+    color: #350F88;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(53, 15, 136, 0.12);
+    max-width: 680px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .logo-strip {
+    background: #ffffff;
+    padding: 18px 40px;
+    border-bottom: 1px solid #DCD5EE;
+  }
+
+  .logo-strip img {
+    height: 56px;
+    width: auto;
+    display: block;
+  }
+
+  .card-header {
+    background: #350F88;
+    padding: 24px 40px 22px;
+    color: #fff;
+  }
+
+  .card-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .card-header p {
+    font-size: 15px;
+    color: #E3DAF8;
+    line-height: 1.5;
+  }
+
+  .progress-bar-wrap {
+    background: #DCD5EE;
+    height: 5px;
+  }
+
+  .progress-bar {
+    background: #6C4FA3;
+    height: 5px;
+    transition: width 0.3s ease;
+  }
+
+  .card-body {
+    padding: 36px 40px 32px;
+  }
+
+  /* Welcome screen */
+  .welcome-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #350F88;
+    margin-bottom: 12px;
+  }
+
+  .welcome-desc {
+    font-size: 15px;
+    color: #5A5A5A;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .meta-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .chip {
+    background: #F3F0FA;
+    color: #350F88;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* Question screen */
+  .dimension-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6C4FA3;
+    margin-bottom: 10px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #350F88;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 2px solid #DCD5EE;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left;
+    background: #fff;
+  }
+
+  .option:hover {
+    border-color: #350F88;
+    background: #F3F0FA;
+  }
+
+  .option.selected {
+    border-color: #350F88;
+    background: #F3F0FA;
+  }
+
+  .option-dot {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    border: 2px solid #CCCCCC;
+    margin-top: 1px;
+    transition: background 0.15s, border-color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .option.selected .option-dot {
+    background: #350F88;
+    border-color: #350F88;
+  }
+
+  .option.selected .option-dot::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .option-text {
+    font-size: 15px;
+    color: #350F88;
+    line-height: 1.5;
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: #350F88;
+    color: #fff;
+    flex: 1;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    background: #F3F0FA;
+    color: #350F88;
+    padding: 13px 20px;
+  }
+
+  .btn-secondary:hover { background: #DCD5EE; }
+
+  .btn-cta {
+    background: #D41409;
+    color: #fff;
+    padding: 16px 32px;
+    font-size: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+
+  .btn-cta:hover { opacity: 0.9; }
+
+  /* Result screen */
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F3F0FA;
+    border-radius: 24px;
+    padding: 8px 18px;
+    margin-bottom: 20px;
+  }
+
+  .result-badge .level-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .result-badge .level-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #350F88;
+  }
+
+  .result-score {
+    font-size: 48px;
+    font-weight: 800;
+    color: #350F88;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .result-score-label {
+    font-size: 13px;
+    color: #5A5A5A;
+    margin-bottom: 18px;
+  }
+
+  .result-desc {
+    font-size: 16px;
+    color: #5A5A5A;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .result-services {
+    background: #F3F0FA;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+
+  .result-services-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #5A5A5A;
+    margin-bottom: 10px;
+  }
+
+  .service-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #350F88;
+  }
+
+  .service-list li::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background: #6C4FA3;
+    border-radius: 50%;
+  }
+
+  .result-cta-wrap {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-retake {
+    background: none;
+    border: 2px solid #DCD5EE;
+    color: #5A5A5A;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .btn-retake:hover { border-color: #350F88; color: #350F88; }
+
+  .q-counter {
+    font-size: 13px;
+    color: #5A5A5A;
+    margin-left: auto;
+  }
+
+  /* Contact step (added: sends results to Salesforce) */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: #5A5A5A; margin-bottom: 6px; }
+  .field input {
+    width: 100%; padding: 12px 14px; border: 2px solid #DCD5EE; border-radius: 8px;
+    font-size: 15px; font-family: inherit; color: #350F88;
+  }
+  .field input:focus { outline: none; border-color: #350F88; }
+  .call-check {
+    display: flex; gap: 12px; align-items: flex-start; background: #F3F0FA; border: 2px solid #DCD5EE;
+    border-radius: 10px; padding: 14px 16px; margin: 6px 0 24px; cursor: pointer; font-size: 15px; line-height: 1.5;
+  }
+  .call-check input { width: 18px; height: 18px; margin-top: 2px; accent-color: #350F88; }
+  .skip-link {
+    display: block; margin-top: 16px; background: none; border: none; color: #5A5A5A;
+    font-size: 14px; text-decoration: underline; cursor: pointer; font-family: inherit;
+  }
+  .form-error { color: #A70716; font-size: 14px; margin-bottom: 12px; }
+  .fine-print { font-size: 12px; color: #5A5A5A; margin-top: 14px; line-height: 1.5; }
+  .hp { position: absolute; left: -5000px; }
+  .sent-note {
+    background: #F3F0FA; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 15px; color: #350F88; line-height: 1.5;
+  }
+
+  @media (max-width: 520px) {
+    .logo-strip { padding: 14px 20px; }
+    .card-header, .card-body { padding: 20px 20px; }
+    .card-header h1 { font-size: 20px; }
+    .question-text { font-size: 17px; }
+    .result-score { font-size: 40px; }
+    .btn-cta { width: 100%; text-align: center; }
+    .field-row { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+<style>
+  .field textarea, .field select {
+    width: 100%; padding: 12px 14px; border: 2px solid #DCD5EE; border-radius: 8px;
+    font-size: 15px; font-family: inherit; color: #350F88; background: #fff;
+  }
+  .field textarea { min-height: 110px; resize: vertical; }
+  .field textarea:focus, .field select:focus { outline: none; border-color: #350F88; }
+  .req { color: #6C4FA3; }
+  .thanks-icon { width: 56px; height: 56px; border-radius: 50%; background: #F3F0FA; color: #6C4FA3;
+    display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; margin-bottom: 18px; }
+  .next-steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 10px; }
+  .next-steps li { counter-increment: s; display: flex; gap: 12px; font-size: 15px; color: #350F88; line-height: 1.5; }
+  .next-steps li::before { content: counter(s); min-width: 24px; height: 24px; border-radius: 50%; background: #350F88;
+    color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+</style>
+<style id="cm-fit">html,body{min-height:0 !important;background:transparent !important}body{align-items:flex-start !important;padding:4px 0 24px !important}</style>
+</head>
+<body>
+
+<div class="card" id="app">
+  <!-- Dynamically rendered by JS -->
+</div>
+
+<script>
+// Salesforce Web-to-Lead (Capability Methods LLC org). Regenerate with build/contact_form.py.
+const SALESFORCE = {
+  "endpoint": "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DDo000001DALGMA4",
+  "oid": "00DDo000001DALGMA4",
+  "fields": {
+    "callRequested": "00NDo00000ExPzl"
+  }
+};
+const TOPICS = ["Salesforce CRM implementation", "Operations consulting / process improvement", "Fractional COO", "AI advisory or AI readiness", "AI engineering enablement", "Salesforce managed services (admin support)", "Something else"];
+
+const LOGO_HTML = `<div class="logo-strip"><img src="../img/logo.png" alt="Capability Methods" onerror="this.parentElement.style.display='none'"></div>`;
+
+let sent = false;
+let contact = { first: "", last: "", email: "", company: "", phone: "", title: "", topic: "", message: "", call: false };
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function render() {
+  const app = document.getElementById('app');
+  sent ? renderThanks(app) : renderForm(app);
+}
+
+function renderForm(app) {
+  const topicOptions = TOPICS.map(t => `<option ${contact.topic === t ? 'selected' : ''}>${esc(t)}</option>`).join('');
+  app.innerHTML = `
+    ${LOGO_HTML}
+    <div class="card-header">
+      <h1>Let's Talk About Your Business</h1>
+      <p>Tell us what you'd like to fix. We reply within one business day.</p>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%"></div></div>
+    <div class="card-body">
+      <form id="contact-form" onsubmit="return submitContact(event)" novalidate>
+        <div class="hp" aria-hidden="true"><input type="text" id="hp" tabindex="-1" autocomplete="off"></div>
+        <div class="field-row">
+          <div class="field"><label for="first">First name <span class="req">*</span></label><input id="first" maxlength="40" required value="${esc(contact.first)}"></div>
+          <div class="field"><label for="last">Last name <span class="req">*</span></label><input id="last" maxlength="80" required value="${esc(contact.last)}"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="email">Work email <span class="req">*</span></label><input id="email" type="email" maxlength="80" required value="${esc(contact.email)}"></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" maxlength="40" value="${esc(contact.phone)}"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="company">Company <span class="req">*</span></label><input id="company" maxlength="40" required value="${esc(contact.company)}"></div>
+          <div class="field"><label for="title">Your role</label><input id="title" maxlength="40" value="${esc(contact.title)}"></div>
+        </div>
+        <div class="field"><label for="topic">What can we help with?</label>
+          <select id="topic"><option value="">Choose one (optional)</option>${topicOptions}</select></div>
+        <div class="field"><label for="message">Tell us a little more <span class="req">*</span></label>
+          <textarea id="message" maxlength="2000" required placeholder="What's working, what isn't, and what you'd like to fix first.">${esc(contact.message)}</textarea></div>
+        <label class="call-check"><input type="checkbox" id="call" ${contact.call ? 'checked' : ''}>
+          <span>Yes, book me a <strong>free 20-minute Discovery Call</strong>. No obligation.</span></label>
+        <div class="form-error" id="form-error" role="alert"></div>
+        <div class="nav">
+          <button type="submit" class="btn btn-primary" id="send-btn">Send Message</button>
+        </div>
+        <div class="fine-print">Fields marked <span class="req">*</span> are required. We use your details only to respond to your request.</div>
+      </form>
+    </div>
+  `;
+}
+
+function renderThanks(app) {
+  const steps = contact.call
+    ? ['We review your message.', 'We contact you within one business day to book your free 20-minute Discovery Call.',
+       'On the call we look at what is costing you the most, and the fastest way to fix it.']
+    : ['We review your message.', 'We reply within one business day.',
+       'If it helps, we suggest a free 20-minute Discovery Call to talk it through.'];
+  app.innerHTML = `
+    ${LOGO_HTML}
+    <div class="card-header">
+      <h1>Message Received</h1>
+      <p>Thank you for reaching out to Capability Methods.</p>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%"></div></div>
+    <div class="card-body">
+      <div class="thanks-icon">&#10003;</div>
+      <div class="welcome-title">Thanks, ${esc(contact.first)}!</div>
+      <div class="result-desc">We've received your message about ${esc(contact.company)}. Here's what happens next:</div>
+      <div class="result-services">
+        <div class="result-services-label">Next steps</div>
+        <ol class="next-steps">${steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      </div>
+      <div class="result-cta-wrap">
+        <button class="btn-retake" onclick="resetForm()">Send another message</button>
+      </div>
+    </div>
+  `;
+}
+
+function submitContact(e) {
+  e.preventDefault();
+  const form = document.getElementById('contact-form');
+  const err = document.getElementById('form-error');
+  const v = id => document.getElementById(id).value.trim();
+  contact = { first: v('first'), last: v('last'), email: v('email'), company: v('company'), phone: v('phone'),
+              title: v('title'), topic: v('topic'), message: v('message'), call: document.getElementById('call').checked };
+  if (document.getElementById('hp').value) { sent = true; render(); return false; }  // bot: pretend success, send nothing
+  if (!form.checkValidity()) {
+    err.textContent = 'Please fill in your name, a valid email, your company and a short message.';
+    form.reportValidity();
+    return false;
+  }
+
+  const description = (contact.topic ? 'Interested in: ' + contact.topic + '\n\n' : '') + contact.message;
+  const data = new URLSearchParams({
+    oid: SALESFORCE.oid, lead_source: 'Website Contact Form',
+    first_name: contact.first, last_name: contact.last, email: contact.email, company: contact.company,
+    phone: contact.phone, title: contact.title, description: description
+  });
+  if (contact.call) data.append(SALESFORCE.fields.callRequested, '1');
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  fetch(SALESFORCE.endpoint, { method: 'POST', mode: 'no-cors', body: data })
+    .then(() => { sent = true; render(); })
+    .catch(() => {
+      btn.disabled = false; btn.innerHTML = 'Send Message';
+      err.textContent = 'Sorry, something went wrong. Please try again or email info@capabilitymethods.com.';
+    });
+  return false;
+}
+
+function resetForm() {
+  sent = false;
+  contact = { first: "", last: "", email: "", company: "", phone: "", title: "", topic: "", message: "", call: false };
+  render();
+}
+
+render();
+</script>
+<script id="cm-height">
+(function () {
+  function send() { var bd = document.body, cs = getComputedStyle(bd); var h = Math.ceil(bd.getBoundingClientRect().height + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom)); parent.postMessage({cmEmbedHeight: h, src: location.pathname.split('/').pop()}, '*'); }
+  window.addEventListener('load', send); window.addEventListener('resize', send);
+  new MutationObserver(send).observe(document.documentElement, {subtree: true, childList: true, attributes: true, characterData: true});
+  setInterval(send, 1000);
+})();
+</script>
+</body>
+</html>
